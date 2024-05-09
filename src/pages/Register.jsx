@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FormRow from '../components/FormRow'
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser } from '../redux/userSlice';
 const Register = () => {
     const [values, setValues] = useState({
         name: '',
-        username: '',
+        email: '',
         password: '',
         isMember: true,
     });
 
-    const [isLoading, setIsLoading] = useState(false)
+    const { user, isLoading } = useSelector((store) => store.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -20,7 +24,21 @@ const Register = () => {
     };
 
     const onSubmit = (e) => {
+        e.preventDefault();
+        if (values.isMember) {
+            dispatch(loginUser({ email: values.email, password: values.password }));
+        } else {
+            dispatch(registerUser({ name: values.name, email: values.email, password: values.password }));
+        }
     };
+
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate("/");
+            }, 1000);
+        }
+    }, [user, navigate]);
     return (
         <main className='h-screen w-screen bg-blue-200 flex items-center justify-center'>
             <form className='h-3/4 w-1/3 bg-white  rounded shadow px-5 flex flex-col gap-y-6 pt-16' onSubmit={onSubmit}>
@@ -38,9 +56,9 @@ const Register = () => {
                 }
                 <FormRow
                     type="text"
-                    name="username"
-                    value={values.username}
-                    labelText="Username"
+                    name="email"
+                    value={values.email}
+                    labelText="email"
                     handleChange={handleChange}
                 />
                 <FormRow

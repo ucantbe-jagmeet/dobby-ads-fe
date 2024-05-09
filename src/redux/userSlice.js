@@ -1,31 +1,81 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../services/api';
-import { getUserToLocalStorage } from '../utils/getUserToLocalStorage';
+import { register, login } from '../services/api';
+import { getUserToLocalStorage, addUserToLocalStorage, removeUserToLocalStorage } from '../utils/getUserToLocalStorage';
 
 const initialState = {
     user: getUserToLocalStorage(),
-}
+    isLoading: false,
+    error: null
+};
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    const response = await api.get('/users');
-    return response.data;
-});
+export const registerUser = createAsyncThunk(
+    'users/register',
+    async (userData, { rejectWithValue }) => {
+        try {
+            const response = await register(userData);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const loginUser = createAsyncThunk(
+    '',
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await login(credentials);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const userSlice = createSlice({
-    name: 'users',
+    name: 'user',
     initialState,
+    reducers: {
+        logoutUser: (state) => {
+            state.user = null;
+            removeUserToLocalStorage();
+        },
+    },
     extraReducers: (builder) => {
-        builder.addCase(fetchUsers.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(fetchUsers.fulfilled, (state, action) => {
-            state.loading = false;
-            state.entities = action.payload;
-        });
-        builder.addCase(fetchUsers.rejected, (state) => {
-            state.loading = false;
-        });
+        builder
+            .addCase(registerUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(registerUser.fulfilled, (state, { payload }) => {
+                const { user } = payload;
+                state.isLoading = false;
+                if (user) {
+                    state.user = user;
+                    addUserToLocalStorage(user);
+                }
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(loginUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(loginUser.fulfilled, (state, { payload }) => {
+                const { user } = payload;
+                state.isLoading = false;
+                if (user) {
+                    state.user = user;
+                    addUserToLocalStorage(user);
+                }
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
     },
 });
+
+export const { logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;
