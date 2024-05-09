@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import SearchContainer from '../components/SearchContainer';
 
 const LandingPage = () => {
     const { user } = useSelector((store) => store.user);
@@ -15,9 +16,11 @@ const LandingPage = () => {
         }
     }, [user, navigate]);
     return (
-        <div>
+        <main className='s h-screen overflow-hidden'>
             <Navbar />
-        </div>
+            <SearchContainer />
+
+        </main>
     )
 }
 
