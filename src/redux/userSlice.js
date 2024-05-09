@@ -38,7 +38,9 @@ const userSlice = createSlice({
     reducers: {
         logoutUser: (state) => {
             state.user = null;
+            state.isLoading = true;
             removeUserToLocalStorage();
+            state.isLoading = false;
         },
     },
     extraReducers: (builder) => {

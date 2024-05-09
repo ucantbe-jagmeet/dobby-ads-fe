@@ -8,17 +8,26 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div>
-            <h2>
-                welcome {user?.name || 'User'}
-            </h2>
-            <button
-                type="button"
-                className="dropdown-btn"
-                onClick={() => dispatch(logoutUser("Logging out ..."))}
-            >
-                Logout
-            </button></div>
+        <main className='bg-red-100 h-16 flex items-center justify-between px-20'>
+            <h2 className='font-semibold text-xl cursor-pointer'>Dobby Ads</h2>
+            <div className='flex'>
+                {user?.name &&
+                    <h2 className='mr-5 font-semibold capitalize'>
+                        welcome, {user.name}
+                    </h2>
+                }
+                <button
+                    type="button"
+                    className={`capitalize px-3 tracking-wider rounded bg-[#4939FF] text-white   ${isLoading
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-[#4939FF] hover:bg-blue-600"
+                        }`} disabled={isLoading}
+                    onClick={() => dispatch(logoutUser())}
+                >
+                    Logout
+                </button>
+            </div>
+        </main>
     )
 }
 
