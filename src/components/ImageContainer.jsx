@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from '../redux/ImageSlice';
-import { getUserToLocalStorage } from '../utils/getUserToLocalStorage';
+import image from "../components/dd.png"
 
 function ImageContainer() {
     const dispatch = useDispatch();
 
-    const { images, isLoading } = useSelector((store) => store.image);
+    const { images } = useSelector((store) => store.image);
     const { token } = useSelector((store) => store.user.user);
     useEffect(() => {
         dispatch(getAllImages(token))
@@ -15,14 +15,13 @@ function ImageContainer() {
     console.log('images', images)
     return (
         <div>
-            <h1>Image Gallery</h1>
-            <div>
+            <h1 className='ml-20 font-bold text-2xl'>Image Gallery</h1>
+            <div className='grid grid-cols-3 justify-center gap-y-5 p-5'>
                 {images && images.map((image, index) => {
-                    return <div key={index}>
+                    return <div className='text-center flex-col flex px-' key={index}>
+                        <img src={`http::localhost:3333${image.filePath}`} alt='img' className='h-40 w-40 self-center' />
                         <h2>{image.fileName}</h2>
-                        <img src={`http::localhost:3333${image.filePath}`} alt='img' className='h-40 w-40' />
                     </div>
-
                 })}
             </div>
         </div>

@@ -35,7 +35,7 @@ const UploadContainer = () => {
         <div className='my-5 flex justify-center'>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <input type="file" onChange={handleFileChange} required />
-                <button type="submit" disabled={isLoading}>
+                <button type="submit" disabled={isLoading} className='shadow px-2 rounded bg-red-500 text-white'>
                     {isLoading ? 'Uploading...' : 'Upload Image'}
                 </button>
             </form>
