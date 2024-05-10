@@ -1,4 +1,3 @@
-// features/images/imageSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchImages, searchImages, uploadImage } from '../services/api';
 

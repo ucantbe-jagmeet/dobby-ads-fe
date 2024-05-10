@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadUserImage } from '../redux/ImageSlice'; // Adjust the path as necessary
+import { uploadUserImage } from '../redux/imagesSlice'; // Adjust the path as necessary
 
 const UploadContainer = () => {
     const [file, setFile] = useState(null);
