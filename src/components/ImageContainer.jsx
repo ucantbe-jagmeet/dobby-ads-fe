@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from '../redux/ImageSlice';
-
+const URL = process.env.REACT_APP_API_URL
 function ImageContainer() {
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function ImageContainer() {
             <div className='grid grid-cols-3 justify-center gap-y-5 p-5'>
                 {images && images.map((image, index) => {
                     return <div className='text-center flex-col flex px-' key={index}>
-                        <img src={`http::localhost:3333${image.filePath}`} alt='img' className='h-40 w-40 self-center' />
+                        <img src={`${URL}${image.filePath}`} alt='img' className='h-40 w-40 self-center' />
                         <h2>{image.fileName}</h2>
                     </div>
                 })}
