@@ -13,7 +13,6 @@ function ImageContainer() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
-    console.log('images', images)
     return (
         <div>
             <h1 className='ml-20 font-bold text-2xl'>Image Gallery</h1>

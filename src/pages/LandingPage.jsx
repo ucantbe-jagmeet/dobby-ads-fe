@@ -9,7 +9,6 @@ import ImageContainer from '../components/ImageContainer';
 const LandingPage = () => {
     const { user } = useSelector((store) => store.user);
     const navigate = useNavigate();
-    console.log("user", user)
     useEffect(() => {
         if (user === null) {
             setTimeout(() => {

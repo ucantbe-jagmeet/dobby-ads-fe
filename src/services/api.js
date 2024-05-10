@@ -8,7 +8,6 @@ const api = axios.create({
     },
 });
 
-console.log('base', process.env.REACT_APP_API_URL);
 
 export const register = (userData) => api.post('auth/register', userData);
 export const login = (credentials) => api.post('auth/login', credentials);

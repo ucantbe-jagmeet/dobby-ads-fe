@@ -14,7 +14,6 @@ export const getAllImages = createAsyncThunk(
     async (token, { rejectWithValue }) => {
         try {
             const response = await fetchImages(token);
-            console.log('respo', response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -38,7 +37,6 @@ export const uploadUserImage = createAsyncThunk(
     'images/upload',
     async ({ formData, token }, { rejectWithValue }) => {
         try {
-            console.log('formDaata1', formData)
             const response = await uploadImage(formData, token);
             return response.data;
         } catch (error) {
