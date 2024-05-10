@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 
 import { logoutUser } from "../redux/userSlice";
+import { clearImages } from '../redux/imagesSlice';
 const Navbar = () => {
 
     const { user, isLoading } = useSelector((store) => store.user);
@@ -22,7 +23,10 @@ const Navbar = () => {
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#4939FF] hover:bg-blue-600"
                         }`} disabled={isLoading}
-                    onClick={() => dispatch(logoutUser())}
+                    onClick={() => {
+                        dispatch(clearImages())
+                        dispatch(logoutUser())
+                    }}
                 >
                     Logout
                 </button>
