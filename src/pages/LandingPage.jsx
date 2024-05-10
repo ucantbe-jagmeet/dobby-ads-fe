@@ -14,7 +14,7 @@ const LandingPage = () => {
         if (user === null) {
             setTimeout(() => {
                 navigate("/register");
-            }, 1000);
+            }, 100);
         }
     }, [user, navigate]);
     return (

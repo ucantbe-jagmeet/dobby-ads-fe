@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from '../redux/ImageSlice';
-import image from "../components/dd.png"
 
 function ImageContainer() {
     const dispatch = useDispatch();
 
     const { images } = useSelector((store) => store.image);
-    const { token } = useSelector((store) => store.user.user);
+    const { user } = useSelector((store) => store?.user);
     useEffect(() => {
-        dispatch(getAllImages(token))
+        if (user)
+            dispatch(getAllImages(user.token))
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
     console.log('images', images)

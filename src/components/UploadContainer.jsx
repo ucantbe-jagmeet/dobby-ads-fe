@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadUserImage } from '../redux/ImageSlice'; // Adjust the path as necessary
-import { getUserToLocalStorage } from '../utils/getUserToLocalStorage';
 
 const UploadContainer = () => {
     const [file, setFile] = useState(null);
     const dispatch = useDispatch();
     const { isLoading, error } = useSelector(state => state.image);
-    const { token } = useSelector((store) => store.user.user); // Assuming you store the token in your user state
+    const { user } = useSelector((store) => store.user); // Assuming you store the token in your user state
 
     // Handlers for input changes
     const handleFileChange = (e) => setFile(e.target.files[0]);
@@ -18,10 +17,9 @@ const UploadContainer = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        if (token)
+        const token = user.token
+        if (user)
             dispatch(uploadUserImage({ formData, token }));
-        else
-            dispatch(uploadUserImage({ formData, token: getUserToLocalStorage().token }));
 
         if (error) {
             alert('Failed to upload image.');

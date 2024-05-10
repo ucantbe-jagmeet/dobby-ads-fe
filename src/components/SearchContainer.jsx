@@ -5,7 +5,7 @@ import { clearFilter, handleChange, searchForImages } from '../redux/ImageSlice'
 
 const SearchContainer = () => {
     const { searchQuery } = useSelector((store) => store.image);
-    const { token } = useSelector((store) => store.user.user);
+    const { user } = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
     const handleSearch = (e) => {
@@ -14,8 +14,9 @@ const SearchContainer = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('search query', searchQuery, token);
-        dispatch(searchForImages({ searchQuery, token }));
+        const token = user.token;
+        if (user)
+            dispatch(searchForImages({ searchQuery, token }));
         dispatch(clearFilter());
     };
 
