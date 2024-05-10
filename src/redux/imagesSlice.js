@@ -13,6 +13,7 @@ export const getAllImages = createAsyncThunk(
     async (token, { rejectWithValue }) => {
         try {
             const response = await fetchImages(token);
+            console.log('resp', response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
