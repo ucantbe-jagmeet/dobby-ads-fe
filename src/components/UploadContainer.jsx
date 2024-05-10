@@ -18,15 +18,12 @@ const UploadContainer = () => {
         formData.append('image', file);
 
         const token = user.token
-        if (user)
+        if (user) {
             dispatch(uploadUserImage({ formData, token }));
-
-        if (error) {
-            alert('Failed to upload image.');
-            console.error('Error uploading image:', error);
-        } else {
-            alert('Image uploaded successfully!');
+            window.location.reload();
         }
+
+
     };
 
     return (
