@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from '../redux/imagesSlice';
-const URL = process.env.REACT_APP_API_URL
+const URL = process.env.REACT_APP_API_URL + '/api/v1'
 function ImageContainer() {
     const dispatch = useDispatch();
 
