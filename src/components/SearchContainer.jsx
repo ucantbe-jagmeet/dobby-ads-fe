@@ -1,7 +1,7 @@
 import React from 'react'
 import FormRow from './FormRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearFilter, handleChange } from '../redux/imageSlice';
+import { clearFilter, handleChange } from '../redux/ImageSlice';
 
 const SearchContainer = () => {
     const { search } = useSelector((store) => store.image);

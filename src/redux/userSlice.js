@@ -25,6 +25,7 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await login(credentials);
+            console.log('respo', response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -52,7 +53,7 @@ const userSlice = createSlice({
                 const { user } = payload;
                 state.isLoading = false;
                 if (user) {
-                    state.user = user;
+                    state.user = payload;
                     addUserToLocalStorage(user);
                 }
             })
@@ -67,7 +68,7 @@ const userSlice = createSlice({
                 const { user } = payload;
                 state.isLoading = false;
                 if (user) {
-                    state.user = user;
+                    state.user = payload;
                     addUserToLocalStorage(user);
                 }
             })

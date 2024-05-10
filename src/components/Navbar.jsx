@@ -11,9 +11,9 @@ const Navbar = () => {
         <main className='bg-red-100 h-16 flex items-center justify-between px-20'>
             <h2 className='font-semibold text-xl cursor-pointer'>Dobby Ads</h2>
             <div className='flex'>
-                {user?.name &&
+                {user?.user?.name &&
                     <h2 className='mr-5 font-semibold capitalize'>
-                        welcome, {user.name}
+                        welcome, {user?.user?.name}
                     </h2>
                 }
                 <button
