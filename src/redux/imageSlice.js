@@ -5,7 +5,8 @@ import { fetchImages, searchImages, uploadImage } from '../services/api';
 const initialState = {
     images: [],
     isLoading: false,
-    error: null
+    error: null,
+    searchQuery: ''
 };
 
 export const getAllImages = createAsyncThunk(
@@ -13,6 +14,7 @@ export const getAllImages = createAsyncThunk(
     async (token, { rejectWithValue }) => {
         try {
             const response = await fetchImages(token);
+            console.log('respo', response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -22,9 +24,9 @@ export const getAllImages = createAsyncThunk(
 
 export const searchForImages = createAsyncThunk(
     'images/search',
-    async ({ name, token }, { rejectWithValue }) => {
+    async ({ searchQuery, token }, { rejectWithValue }) => {
         try {
-            const response = await searchImages(name, token);
+            const response = await searchImages(searchQuery, token);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);

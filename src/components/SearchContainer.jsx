@@ -1,26 +1,31 @@
 import React from 'react'
 import FormRow from './FormRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearFilter, handleChange } from '../redux/ImageSlice';
+import { clearFilter, handleChange, searchForImages } from '../redux/ImageSlice';
 
 const SearchContainer = () => {
-    const { search } = useSelector((store) => store.image);
+    const { searchQuery } = useSelector((store) => store.image);
+    const { token } = useSelector((store) => store.user.user);
     const dispatch = useDispatch();
 
     const handleSearch = (e) => {
         dispatch(handleChange({ name: e.target.name, value: e.target.value }));
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log('search query', searchQuery, token);
+        dispatch(searchForImages({ searchQuery, token }));
         dispatch(clearFilter());
     };
+
     return (
         <div className='my-5 flex justify-center'>
             <form onSubmit={handleSubmit} className='flex w-1/3'>
                 <FormRow
                     type="text"
-                    name="search"
-                    value={search}
+                    name="searchQuery"
+                    value={searchQuery}
                     handleChange={handleSearch}
                     labelText="Search"
                 />

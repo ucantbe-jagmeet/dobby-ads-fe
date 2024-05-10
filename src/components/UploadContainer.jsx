@@ -5,23 +5,19 @@ import { getUserToLocalStorage } from '../utils/getUserToLocalStorage';
 
 const UploadContainer = () => {
     const [file, setFile] = useState(null);
-    const [imageName, setImageName] = useState('');
     const dispatch = useDispatch();
     const { isLoading, error } = useSelector(state => state.image);
     const { token } = useSelector((store) => store.user.user); // Assuming you store the token in your user state
 
     // Handlers for input changes
     const handleFileChange = (e) => setFile(e.target.files[0]);
-    const handleNameChange = (e) => setImageName(e.target.value);
 
     // Form submit handler
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('image', file);
-        formData.append('name', imageName);
 
-        console.log('formDAta', formData)
         if (token)
             dispatch(uploadUserImage({ formData, token }));
         else
@@ -37,8 +33,7 @@ const UploadContainer = () => {
 
     return (
         <div className='my-5 flex justify-center'>
-            <form onSubmit={handleSubmit} enctype="multipart/form-data">
-                <input type="text" value={imageName} onChange={handleNameChange} placeholder="Enter image name" required />
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <input type="file" onChange={handleFileChange} required />
                 <button type="submit" disabled={isLoading}>
                     {isLoading ? 'Uploading...' : 'Upload Image'}

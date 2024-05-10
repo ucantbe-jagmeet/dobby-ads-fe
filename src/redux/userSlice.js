@@ -54,7 +54,7 @@ const userSlice = createSlice({
                 state.isLoading = false;
                 if (user) {
                     state.user = payload;
-                    addUserToLocalStorage(user);
+                    addUserToLocalStorage(payload);
                 }
             })
             .addCase(registerUser.rejected, (state, action) => {
@@ -69,7 +69,7 @@ const userSlice = createSlice({
                 state.isLoading = false;
                 if (user) {
                     state.user = payload;
-                    addUserToLocalStorage(user);
+                    addUserToLocalStorage(payload);
                 }
             })
             .addCase(loginUser.rejected, (state, action) => {

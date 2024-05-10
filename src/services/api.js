@@ -10,8 +10,6 @@ const api = axios.create({
 export const register = (userData) => api.post('auth/register', userData);
 export const login = (credentials) => api.post('auth/login', credentials);
 export const uploadImage = (formData, token) => {
-    console.log('formData', formData);
-
     return api.post('/upload', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -28,8 +26,8 @@ export const fetchImages = (token) => {
     });
 };
 
-export const searchImages = (name, token) => {
-    return api.get(`/search?name=${name}`, {
+export const searchImages = (searchQuery, token) => {
+    return api.get(`/search?name=${searchQuery}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         },

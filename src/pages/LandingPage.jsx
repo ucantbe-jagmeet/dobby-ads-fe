@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SearchContainer from '../components/SearchContainer';
 import UploadContainer from '../components/UploadContainer';
+import ImageContainer from '../components/ImageContainer';
 
 const LandingPage = () => {
     const { user } = useSelector((store) => store.user);
@@ -21,7 +22,7 @@ const LandingPage = () => {
             <Navbar />
             <SearchContainer />
             <UploadContainer />
-
+            <ImageContainer />
         </main>
     )
 }
